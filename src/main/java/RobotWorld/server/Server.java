@@ -1,4 +1,4 @@
-package RobotWorld;
+package RobotWorld.server;
 
 
 public class Server implements Runnable{
