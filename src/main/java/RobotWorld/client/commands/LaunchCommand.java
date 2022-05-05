@@ -2,13 +2,13 @@ package RobotWorld.client.commands;
 
 import RobotWorld.robot.Robot;
 
-public class State extends Command {
+public class LaunchCommand extends Command{
+    public LaunchCommand() {
+        super("launch");
+    }
+
     @Override
     public boolean execute(Robot target) {
         return false;
-    }
-
-    public State(String name) {
-        super("state");
     }
 }
