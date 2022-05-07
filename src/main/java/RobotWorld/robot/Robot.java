@@ -110,6 +110,12 @@ public class Robot {
 
         return name;
     }
+
+    public boolean blocksPosition(Position position)
+    {
+        return this.position.getX() == position.getX()
+                && this.position.getY() <= position.getY();
+    }
     public Position getPosition() {
         return this.position;
     }
