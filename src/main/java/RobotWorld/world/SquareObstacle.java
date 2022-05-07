@@ -48,6 +48,5 @@ public class SquareObstacle implements Obstacle{
             return minY <= this.y&&this.y <= maxY && this.x <= a.getX()&&a.getX() < this.x + size;
         else
             return minX <= this.x&&this.x <= maxX && this.y <= a.getY()&&a.getY() < this.y + size;
-
     }
 }
