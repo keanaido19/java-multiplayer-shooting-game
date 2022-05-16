@@ -1,4 +1,4 @@
-package RobotWorld.robot;
+package RobotWorld;
 
 public class Position {
     private final int x;

@@ -1,4 +1,4 @@
-package RobotWorld.client.commands;
+package RobotWorld.commands;
 
 import RobotWorld.robot.Robot;
 

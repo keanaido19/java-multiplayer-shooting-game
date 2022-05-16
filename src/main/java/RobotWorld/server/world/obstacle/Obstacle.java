@@ -1,8 +1,8 @@
-package RobotWorld.world;
+package RobotWorld.server.world.obstacle;
 
 //import RobotWorld.world;
 
-import RobotWorld.robot.Position;
+import RobotWorld.Position;
 
 /**
  * Defines an interface for obstacles you want to place in your world.

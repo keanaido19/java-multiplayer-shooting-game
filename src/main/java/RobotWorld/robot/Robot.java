@@ -1,66 +1,59 @@
 package RobotWorld.robot;
 
-import RobotWorld.client.commands.Command;
-
-import java.util.List;
+import RobotWorld.Direction;
+import RobotWorld.Position;
+import RobotWorld.commands.Command;
 
 public class Robot {
-
-    private final Position TOP_LEFT = new Position(-100, 200);
-    private final Position BOTTOM_RIGHT = new Position(100, -200);
-    public static final Position CENTRE = new Position(0, 0);
     private Position position;
     private Direction currentDirection;
     private String status;
     private String name;
     private int numberOfShots;
-    private int distanceOfShots;
+    private int shield;
     public Robot(String name) {
-        this.position = CENTRE;
-        this.currentDirection = Direction.north;
         this.name = name;
         this.status = "Ready";
         this.numberOfShots =0;
-        this.distanceOfShots = 0;
+        this.shield = 0;
     }
+
+
 
     public boolean updatePosition(int nrSteps) {
         int newX = this.position.getX();
         int newY = this.position.getY();
 
-        if (Direction.north.equals(this.currentDirection)) {
+        if (Direction.NORTH.equals(this.currentDirection)) {
             newY = newY + nrSteps;
         }
-        if (Direction.east.equals(this.currentDirection)) {
+        if (Direction.EAST.equals(this.currentDirection)) {
             newX = newX + nrSteps;
         }
-        if (Direction.west.equals(this.currentDirection)) {
+        if (Direction.WEST.equals(this.currentDirection)) {
             newX = newX - nrSteps;
         }
-        if (Direction.south.equals(this.currentDirection)) {
+        if (Direction.SOUTH.equals(this.currentDirection)) {
             newY = newY - nrSteps;
         }
 
         Position newPosition = new Position(newX, newY);
-        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT)) {
-            this.position = newPosition;
-        }
         return true;
     }
     public void turnRight() {
 
         switch (this.currentDirection) {
-            case north:
-                this.currentDirection = Direction.east;
+            case NORTH:
+                this.currentDirection = Direction.EAST;
                 break;
-            case south:
-                this.currentDirection = Direction.west;
+            case SOUTH:
+                this.currentDirection = Direction.WEST;
                 break;
-            case east:
-                this.currentDirection = Direction.south;
+            case EAST:
+                this.currentDirection = Direction.SOUTH;
                 break;
-            case west:
-                this.currentDirection = Direction.north;
+            case WEST:
+                this.currentDirection = Direction.NORTH;
                 break;
             default:
                 throw new IllegalStateException("has no opposite.");
@@ -68,42 +61,43 @@ public class Robot {
     }
     public void turnLeft() {
         switch (this.currentDirection) {
-            case north:
-                this.currentDirection = Direction.west;
+            case NORTH:
+                this.currentDirection = Direction.WEST;
                 break;
-            case south:
-                this.currentDirection = Direction.east;
+            case SOUTH:
+                this.currentDirection = Direction.EAST;
                 break;
-            case east:
-                this.currentDirection = Direction.north;
+            case EAST:
+                this.currentDirection = Direction.NORTH;
                 break;
-            case west:
-                this.currentDirection = Direction.south;
+            case WEST:
+                this.currentDirection = Direction.SOUTH;
                 break;
             default:
                 throw new IllegalStateException(" has no opposite.");
         }
     }
     public boolean handleCommand(Command command) {
-
         return command.execute(this);
     }
     public boolean fireCommand(){
         return true;
     }
 
+    @Override
     public String toString() {
-        return status;
-
-
+        return "state {" +
+                ", name='" + name + '\'' +
+                "position=" + position +
+                ", direction=" + currentDirection +
+                ", shots:" + numberOfShots +
+                ", shield: " + shield +
+                ", status: " + status + '\'' +
+                '}';
     }
-    public void setStatus(String status) {
-        if (position != null) {
-            this.status = "[" + position.getX() + "," + position.getY() + "] " + getName() + " : " + status;
-        } else {
-            this.status = "> " + getName() + " : " + status;
-        }
 
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getName() {
@@ -115,6 +109,16 @@ public class Robot {
     {
         return this.position.getX() == position.getX()
                 && this.position.getY() <= position.getY();
+    }
+
+    public boolean blocksPath(Position a, Position b)
+    {
+        int y = this.position.getY();
+        int x = this.position.getX();
+        int maxX = Math.max(a.getX(),b.getX()), minX = Math.min(a.getX(),b.getX());
+        int maxY = Math.max(a.getY(),b.getY()), minY = Math.min(a.getY(),b.getY());
+
+        return minY <= y&&y <= maxY && minX<= x && x <= maxX;
     }
     public Position getPosition() {
         return this.position;

@@ -1,8 +1,8 @@
-package RobotWorld.world;
+package RobotWorld.server.world.obstacle;
 
-import RobotWorld.robot.Position;
+import RobotWorld.Position;
 
-public class SquareObstacle implements Obstacle{
+public class SquareObstacle implements Obstacle {
     private int x;
     private int y;
     public final int size;

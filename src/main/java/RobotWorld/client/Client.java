@@ -1,6 +1,6 @@
 package RobotWorld.client;
 
-import RobotWorld.client.commands.Command;
+import RobotWorld.commands.Command;
 import RobotWorld.robot.Robot;
 
 import java.io.BufferedReader;
