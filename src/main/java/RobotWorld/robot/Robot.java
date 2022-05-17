@@ -3,6 +3,8 @@ package RobotWorld.robot;
 import RobotWorld.Direction;
 import RobotWorld.Position;
 import RobotWorld.commands.Command;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class Robot {
     private Position position;
@@ -11,13 +13,13 @@ public class Robot {
     private String name;
     private int numberOfShots;
     private int shield;
+
     public Robot(String name) {
         this.name = name;
-        this.status = "Ready";
-        this.numberOfShots =0;
+        this.status = "NORMAL";
+        this.numberOfShots = 0;
         this.shield = 0;
     }
-
 
 
     public boolean updatePosition(int nrSteps) {
@@ -40,6 +42,7 @@ public class Robot {
         Position newPosition = new Position(newX, newY);
         return true;
     }
+
     public void turnRight() {
 
         switch (this.currentDirection) {
@@ -59,6 +62,7 @@ public class Robot {
                 throw new IllegalStateException("has no opposite.");
         }
     }
+
     public void turnLeft() {
         switch (this.currentDirection) {
             case NORTH:
@@ -77,24 +81,31 @@ public class Robot {
                 throw new IllegalStateException(" has no opposite.");
         }
     }
+
     public boolean handleCommand(Command command) {
         return command.execute(this);
     }
-    public boolean fireCommand(){
+
+    public boolean fireCommand() {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "state {" +
-                ", name='" + name + '\'' +
-                "position=" + position +
-                ", direction=" + currentDirection +
-                ", shots:" + numberOfShots +
-                ", shield: " + shield +
-                ", status: " + status + '\'' +
-                '}';
+    public JSONObject setState() {
+        JSONObject state = new JSONObject();
+        JSONArray positions = new JSONArray();
+        positions.add(position.getX());
+        positions.add(position.getY());
+        state.put("name", name);
+        state.put("position", positions);
+        state.put("direction",currentDirection);
+        state.put("shots",numberOfShots);
+        state.put("shield",shield);
+        state.put("status",status);
+
+        return state;
     }
+
+
 
     public void setStatus(String status) {
         this.status = status;
