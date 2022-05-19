@@ -2,7 +2,10 @@ package RobotWorld.server.world;
 
 import RobotWorld.Position;
 import RobotWorld.robot.Robot;
+import RobotWorld.server.world.obstacle.AbstractMaze;
+import RobotWorld.server.world.obstacle.Maze;
 import RobotWorld.server.world.obstacle.Obstacle;
+import RobotWorld.server.world.obstacle.RandomMaze;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,14 @@ public class World implements IWorld{
     private final Position BOTTOM_RIGHT;
     private final Config worldConfig;
     private final List<Robot> players = new ArrayList<>();
-    private final List<Obstacle> obstacles = new ArrayList<>();;
+    private final List<Obstacle> obstacles = new ArrayList<>();
+    private AbstractMaze maze;
 
     public World(){
         this.worldConfig = new DefaultConfig();
         this.TOP_LEFT = worldConfig.topLeft();
         this.BOTTOM_RIGHT = worldConfig.bottomRight();
+        this.maze = new RandomMaze();
     }
 
     public World(Config config)
@@ -50,13 +55,13 @@ public class World implements IWorld{
 
     public boolean isPathBlocked(Position a, Position b)
     {
-        return obstacles.stream().noneMatch(obs -> obs.blocksPath(a,b)) &&
+        return getObstacles().stream().noneMatch(obs -> obs.blocksPath(a,b)) &&
                 players.stream().noneMatch(target -> target.blocksPath(a,b));
     }
 
     public boolean isPositionBlocked(Position position)
     {
-        return obstacles.stream().noneMatch(obs -> obs.blocksPosition(position))
+        return getObstacles().stream().noneMatch(obs -> obs.blocksPosition(position))
                 && players.stream().noneMatch(robot ->
                 robot.blocksPosition(position));
     }
@@ -76,6 +81,25 @@ public class World implements IWorld{
             y = random.nextInt(worldConfig.getHeight()) - worldConfig.getHeight()/2;
         }
         return new Position(x,y);
+    }
+
+    public AbstractMaze getMaze()
+    {
+        return this.maze;
+    }
+
+    public void setMaze(AbstractMaze maze)
+    {
+        this.maze = maze;
+    }
+
+    public List<Obstacle> getObstacles()
+    {
+        if (obstacles.isEmpty())
+            maze.setWidth(worldConfig.getWidth());
+            maze.setHeight(worldConfig.getHeight());
+            obstacles.addAll(maze.getObstacles());
+        return obstacles;
     }
 
     @Override
