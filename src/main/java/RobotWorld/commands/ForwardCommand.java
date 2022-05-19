@@ -12,7 +12,6 @@ public class ForwardCommand extends Command {
 
         super("forward", argument);
     }
-
     @Override
     public boolean execute(Robot target) {
         SquareObstacle squareObstacle = new SquareObstacle(target.getPosition().getX(), target.getPosition().getY());

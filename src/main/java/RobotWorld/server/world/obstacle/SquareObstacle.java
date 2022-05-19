@@ -5,12 +5,11 @@ import RobotWorld.Position;
 public class SquareObstacle implements Obstacle {
     private int x;
     private int y;
-    public final int size;
+    public final int SIZE = 5;
 
     public SquareObstacle(int x, int y)
     {
         this.x = x;
-        this.size = 5;
         this.y = y;
     }
 
@@ -26,7 +25,7 @@ public class SquareObstacle implements Obstacle {
 
     @Override
     public int getSize() {
-        return size;
+        return SIZE;
     }
 
     @Override
@@ -34,8 +33,8 @@ public class SquareObstacle implements Obstacle {
     {
         int xCor = position.getX(), yCor = position.getY();
 
-        return this.x <= xCor&&xCor < this.x + size
-                && this.y <= yCor&&yCor < this.y + size;
+        return this.x <= xCor&&xCor <= this.x + SIZE
+                && this.y <= yCor&&yCor <= this.y + SIZE;
     }
 
     @Override
@@ -45,8 +44,10 @@ public class SquareObstacle implements Obstacle {
         int maxY = Math.max(a.getY(),b.getY()), minY = Math.min(a.getY(),b.getY());
 
         if (a.getX() == b.getX())
-            return minY <= this.y&&this.y <= maxY && this.x <= a.getX()&&a.getX() < this.x + size;
+            return minY <= this.y&&this.y <= maxY && this.x <= a.getX()&&a.getX() < this.x + SIZE;
         else
-            return minX <= this.x&&this.x <= maxX && this.y <= a.getY()&&a.getY() < this.y + size;
+            return minX <= this.x&&this.x <= maxX && this.y <= a.getY()&&a.getY() < this.y + SIZE;
+
+
     }
 }

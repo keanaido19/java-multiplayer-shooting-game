@@ -23,6 +23,7 @@ public class Robot {
 
 
     public boolean updatePosition(int nrSteps) {
+
         int newX = this.position.getX();
         int newY = this.position.getY();
 
@@ -39,7 +40,7 @@ public class Robot {
             newY = newY - nrSteps;
         }
 
-        Position newPosition = new Position(newX, newY);
+        this.position = new Position(newX, newY);
         return true;
     }
 
@@ -82,6 +83,17 @@ public class Robot {
         }
     }
 
+    public int getShield() {
+        return shield;
+    }
+
+    public void setShield(int shield) {
+        this.shield = shield;
+    }
+    public int getShots() {
+        return numberOfShots;
+    }
+
     public boolean handleCommand(Command command) {
         return command.execute(this);
     }
@@ -110,6 +122,9 @@ public class Robot {
     public void setStatus(String status) {
         this.status = status;
     }
+    public String getStatus() {
+
+        return this.status;}
 
     public String getName() {
 
@@ -136,5 +151,9 @@ public class Robot {
     }
     public Direction getCurrentDirection() {
         return this.currentDirection;
+    }
+
+    protected void setShots(int numberOfShots) {
+        this.numberOfShots = numberOfShots;
     }
 }
