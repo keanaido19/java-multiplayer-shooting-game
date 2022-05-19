@@ -223,8 +223,8 @@ public class Client {
                 isLaunchCommand = false;
             }
 
-//            if (!isResponseForUI(jsonStringResponseFromServer))
-//                printServerResponse(jsonStringResponseFromServer);
+            if (!isResponseForUI(jsonStringResponseFromServer))
+                printServerResponse(jsonStringResponseFromServer);
         }
     }
 
@@ -287,9 +287,9 @@ public class Client {
             setServerIOStreams();
             System.out.println("Connection to server has been established " +
                     "successfully!");
-//            consoleThread.start();
+            consoleThread.start();
             responseThread.start();
-            gamepadThread.start();
+//            gamepadThread.start();
         } catch (IOException e) {
             System.out.println("Failed to establish connection to " +
                     "server!\nShutting down client...");

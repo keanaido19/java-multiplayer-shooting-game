@@ -13,6 +13,7 @@ public class Position {
     }
 
     public List<Integer> getPositionAsList() {
+
         return Arrays.asList(x, y);
     }
 

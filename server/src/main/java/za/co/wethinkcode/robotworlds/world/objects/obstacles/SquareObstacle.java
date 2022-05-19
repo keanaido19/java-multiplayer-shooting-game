@@ -8,6 +8,7 @@ import za.co.wethinkcode.robotworlds.world.objects.WorldObject;
  */
 public class SquareObstacle extends WorldObject {
     public SquareObstacle(Position centerPosition, int size) {
+
         super(centerPosition, size);
     }
 

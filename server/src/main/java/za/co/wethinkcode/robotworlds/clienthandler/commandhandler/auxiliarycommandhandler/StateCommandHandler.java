@@ -11,6 +11,7 @@ public class StateCommandHandler extends AuxiliaryCommandHandlerStrategy {
 
     @Override
     public AuxiliaryCommand getCommand(String robotName) {
+
         return new StateCommand(robotName);
     }
 }

@@ -51,6 +51,7 @@ public class ServerResponse {
     }
 
     public static ServerResponse launchErrorResponse() {
+
         return getErrorResponse("Robot has not been launched");
     }
 
